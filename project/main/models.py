@@ -111,8 +111,5 @@ class sqdata(models.Model):
     
     def __str__(self):
         return self.unique_squirrel_id
-    
-        
-    
 
 # Create your models here.
