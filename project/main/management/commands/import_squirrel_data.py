@@ -21,10 +21,17 @@ class Command(BaseCommand):
 
                  
         with open(path, mode ='r') as csv_file:
-            reader = csv.reader(csv_file, delimiter=',', quotechar='|')
+            reader = csv.reader(csv_file, delimiter=',', quotechar='"')
             header = next(reader)
             header = [header.lower().replace(" ","_").replace("/","_") for header in header]          
             for row in reader:
                 _object_dict = {key: value for key, value in zip(header, row)}
-                _model.objects.create(**_object_dict)
-            
+                _object_dict_fixed = {}
+                for key, value in _object_dict.items():
+                    if value.lower() == "true":
+                        _object_dict_fixed[key] = True
+                    elif value.lower() == "false":
+                        _object_dict_fixed[key] = False
+                    else:
+                        _object_dict_fixed[key] = value
+                _model.objects.create(**_object_dict_fixed)

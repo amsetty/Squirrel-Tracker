@@ -70,36 +70,36 @@ class sqdata(models.Model):
     specific_location = models.TextField(
         blank= True,
     )
+
+    running = models.BooleanField(default=False)
+
+    chasing = models.BooleanField(default=False)
     
-    running = models.CharField( max_length=50)
+    climbing = models.BooleanField(default=False)
     
-    chasing = models.CharField( max_length=50)
+    eating = models.BooleanField(default=False)
     
-    climbing = models.CharField( max_length=50)
-    
-    eating = models.CharField( max_length=50)
-    
-    foraging = models.CharField( max_length=50)
+    foraging = models.BooleanField(default=False)
     
     other_activities = models.TextField(
         blank= True,
     )
     
-    kuks = models.CharField( max_length=50)
+    kuks = models.BooleanField(default=False)
     
-    quaas = models.CharField( max_length=50)
+    quaas = models.BooleanField(default=False)
     
-    moans = models.CharField( max_length=50)
+    moans = models.BooleanField(default=False)
     
-    tail_flags = models.CharField( max_length=50)
+    tail_flags = models.BooleanField(default=False)
     
-    tail_twitches = models.CharField( max_length=50)
+    tail_twitches = models.BooleanField(default=False)
     
-    approaches = models.CharField( max_length=50)
+    approaches = models.BooleanField(default=False)
     
-    indifferent = models.CharField( max_length=50)
+    indifferent = models.BooleanField(default=False)
     
-    runs_from = models.CharField( max_length=50)
+    runs_from = models.BooleanField(default=False)
     
     other_interactions = models.TextField(
         blank= True,
