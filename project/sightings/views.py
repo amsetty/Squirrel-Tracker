@@ -5,4 +5,10 @@ from django.http import HttpResponse
 from main.models import sqdata
 
 def index(request):
-    return HttpResponse("Hello, world!")
+    sightings = sqdata.objects.all()
+
+    context = {
+        'sightings': sightings
+    }
+
+    return render(request,"sightings/index.html",context)
