@@ -25,9 +25,9 @@
   <tbody>
 	{% for item in sightings %}
         <tr>
-		<th scope="row">{{ item.id }}</th>
+		<th scope="row">{{ item.unique_squirrel_id }}</th>
 		<td>{{ item.date }}</td>
-  		<td><a href="{{ item.id }}">Link</a></td>
+  		<td><a href="{{ item.unique_squirrel_id }}">Link</a></td>
 	</tr>
 	{% endfor %}
 	
