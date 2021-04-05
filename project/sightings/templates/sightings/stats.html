@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.82.0">
+    <title>Sighting Stats</title>
+
+    {% load static %}
+
+<link href="{% static  '/bootstrap.min.css' %}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="{% static 'carousel.css' %}" rel="stylesheet">
+</head>
+<body>
+   
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Project 54</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'map' %}">Map view</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+              </ul>
+              <!-- <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form> -->
+            </div>
+          </div>
+        </nav>
+      </header>
+<main>
+</div>
+<div class="container marketing">
+    <div class = "row">
+        
+    <div class="col-lg-6">
+
+      <div class = "align">
+
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Sightings</title><rect width="100%" height="100%" fill="#2A3132"/>
+            <text x="50%" y="50%" fill="azure" dy="0.3em" font-size = "300%">{{ sightings }}</text></svg>
+        <h2>Sightings</h2>
+        <p>Total number of recorded Squirrel Sightings in the central park during the census</p>
+      </div>
+    </div><!-- /.col-lg-6 -->
+
+        <div class="col-lg-6">
+            <table id= "stats"> 
+                <caption>Different Stats from the Squirrel census</caption> 
+                <thead>
+                    <tr> 
+                        <th>Metric</th>
+                        <th colspan = "2">Value</th>
+                    </tr> 
+                </thead> 
+                <tbody> 
+                    <tr> 
+                        <td rowspan = 5  >Distribution of Squirrel ages</td> 
+                    </tr> 
+                   {% for age in ages %}
+                   <tr>
+                   <td>{{ age.age }}</td>
+                   <td>{{ age.dist_count }}</td>
+                   </tr>
+                   {% endfor %}
+                    <tr> 
+                        <td rowspan = 4  >Top three Hectare with sightings</td> 
+                    </tr> 
+                   {% for hectare in hectares %}
+                   <tr>
+                   <td>{{ hectare.hectare }}</td>
+                   <td>{{ hectare.dist_count }}</td>
+                   </tr>
+                   {% endfor %}
+                    <tr> 
+                        <td rowspan = 4  >Top three primary fur colors</td> 
+                    </tr> 
+                   {% for fur in furs %}
+                   <tr>
+                   <td>{{ fur.primary_fur_color }}</td>
+                   <td>{{ fur.dist_count }}</td>
+                   </tr>
+                   {% endfor %}
+                    <tr> 
+                        <td >Census start date</td> 
+                        <td colspan = 2>{{ minimum_date.date__min }}</td>
+                    </tr>
+                    <tr> 
+                        <td >Census start date</td> 
+                        <td colspan = 2>{{ maximum_date.date__max }}</td>
+                    </tr>  
+  
+                </tbody> 
+                <!-- <tfoot> 
+                    <tr> 
+                        <td colspan="3">
+                            <em>Market Share</em>refers to the percentage of sites using any JavaScript library that use the specified library. 
+                            <em>Absolute Usage</em> is the percent of websites surveyed, including those that use no JavaScript libraries, that use the specified library. All data comes from 
+                            <a href="https://w3techs.com/technologies/overview/javascript_library/all" target="_blank">W3Techs</a> and was accurate in June of 2016.
+                        </td> 
+                    </tr> 
+                </tfoot>  -->
+            </table>
+        </div><!-- /.col-lg-6n -->
+    </div> <!--/.row-->
+    </div> <!--./container-->
+
+
+
+  <!-- FOOTER -->
+  <!-- <footer class="container">
+    <p class="float-end"><a href="#">Back to top</a></p>
+    <p>&copy; 2017–2021 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+  </footer> -->
+</main>
+</body>
+</html>

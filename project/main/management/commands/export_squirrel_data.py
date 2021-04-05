@@ -21,8 +21,8 @@ class Command(BaseCommand):
         for field in fields:
             field_names.append(field.attname)
 
-        with open(path, mode ='w') as csv_file:
-            writer = csv.writer(csv_file, delimiter=',', quotechar='"')
+        with open(path, mode ='w',newline="") as csv_file:
+            writer = csv.writer(csv_file, delimiter=',',quoting=csv.QUOTE_MINIMAL, quotechar='"')
             writer.writerow(field_names)
             
             for item in _model.objects.all():
@@ -34,9 +34,9 @@ class Command(BaseCommand):
                     #This converts to true/false string instead
                     if field.get_internal_type() == "BooleanField": 
                         if value == "0":
-                            row_values.append("FALSE")
+                            row_values.append(False)
                         else:
-                            row_values.append("TRUE")
+                            row_values.append(True)
                     else:
                         row_values.append(str(value))
                 

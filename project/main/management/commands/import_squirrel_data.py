@@ -18,6 +18,9 @@ class Command(BaseCommand):
         #     raise CommandError('Not a csv file')
         
         _model = apps.get_model('main','sqdata')
+        
+        # Delete the existing data in the model before importing new dataset
+        _model.objects.all().delete()
 
                  
         with open(path, mode ='r') as csv_file:

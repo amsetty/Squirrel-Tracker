@@ -109,6 +109,8 @@ class sqdata(models.Model):
         max_length=50,
     )
     
+    id = models.AutoField(primary_key=True)
+    
     def __str__(self):
         return self.unique_squirrel_id
 
