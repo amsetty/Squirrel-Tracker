@@ -43,3 +43,13 @@ def stats(request):
     # return HttpResponse(fur[0])
     return render(request,"sightings/stats.html",context)
 
+    sightings = sqdata.objects.all()
+
+    context = {
+        'sightings': sightings
+    }
+
+    return render(request,"sightings/index.html",context)
+
+def update(request, unique_squirrel_id):
+    return HttpResponse("Hello squirrel " + unique_squirrel_id)
