@@ -5,7 +5,7 @@ from django.db.models import Count
 from django.db.models import Min
 from django.contrib import messages
 
-from main.models import sqdata, SqUpdateForm
+from main.models import sqdata, SqUpdateForm, SqAddForm
 
 def index(request):
     sightings = sqdata.objects.all()
@@ -87,4 +87,19 @@ def update(request, unique_squirrel_id):
 
 
 def add(request):
-    return HttpResponse('Hello, world!')
+    if request.method == 'POST':
+        form = SqAddForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Squirrel sighting added successfully!')
+            return HttpResponseRedirect('/sightings/add')
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)
+    else:
+        form = SqAddForm()
+
+        context = {
+            'form': form
+        }
+
+        return render(request, "sightings/add.html", context)

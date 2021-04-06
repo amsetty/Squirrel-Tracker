@@ -122,4 +122,9 @@ class SqUpdateForm(ModelForm):
         model = sqdata
         fields = [ 'x', 'y', 'unique_squirrel_id', 'shift', 'date', 'age' ]
 
+class SqAddForm(ModelForm):
+    class Meta:
+        model = sqdata
+        fields = '__all__'
+
 # Create your models here.
