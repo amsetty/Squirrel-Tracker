@@ -21,6 +21,7 @@ class sqdata(models.Model):
     
     hectare = models.CharField(
         max_length= 20,
+        blank=True,
         help_text= _('ID tag derived from hectare grid'),
     )
         
@@ -29,13 +30,11 @@ class sqdata(models.Model):
         help_text= _('Value is either "AM" or "PM," to communicate whether the sighting session occurred in the morning or late afternoon'),
     )
     
-    date = models.IntegerField(
-        max_length= 20,
-        help_text= _('Sighting date')
+    date = models.DateField(
+        help_text= _('Sighting date (format: YYYY-MM-DD')
     )
     
     hectare_squirrel_number = models.IntegerField(
-        max_length= 30,
         help_text=_('Number within the chronological sequence of squirrel sightings for a discrete sighting session'),
         
     )
@@ -48,14 +47,17 @@ class sqdata(models.Model):
     
     primary_fur_color = models.CharField(
         max_length= 30,
+        blank=True,
     )
     
     highlight_fur_color = models.CharField(
         max_length=30,
+        blank=True,
     )
     
     combination_of_primary_and_highlight_color = models.CharField(
         max_length=30,
+        blank=True,
     )
     
     color_notes = models.TextField(
@@ -64,11 +66,13 @@ class sqdata(models.Model):
     
     location = models.CharField(
         max_length=50,
+        blank=True,
     )
     
     above_ground_sighter_measurement = models.CharField(
         max_length=10,
-    )
+        blank=True,
+     )
     
     specific_location = models.TextField(
         blank= True,
@@ -110,6 +114,7 @@ class sqdata(models.Model):
     
     lat_long = models.CharField(
         max_length=50,
+        blank=True,
     )
     
     id = models.AutoField(primary_key=True)

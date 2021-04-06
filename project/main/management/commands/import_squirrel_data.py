@@ -35,6 +35,9 @@ class Command(BaseCommand):
                         _object_dict_fixed[key] = True
                     elif value.lower() == "false":
                         _object_dict_fixed[key] = False
+                    elif key == "date":
+                        new_date = value[4:] + "-" + value[0:2] + "-" + value[2:4]
+                        _object_dict_fixed[key] = new_date
                     else:
                         _object_dict_fixed[key] = value
                 _model.objects.create(**_object_dict_fixed)
