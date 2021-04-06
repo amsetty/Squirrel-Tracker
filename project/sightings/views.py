@@ -84,3 +84,7 @@ def update(request, unique_squirrel_id):
         }   
 
         return render(request, "sightings/update.html", context)
+
+
+def add(request):
+    return HttpResponse('Hello, world!')
