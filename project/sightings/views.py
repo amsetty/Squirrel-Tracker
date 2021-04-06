@@ -1,13 +1,20 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.db.models import Max
 from django.db.models import Count
 from django.db.models import Min
+from django.contrib import messages
 
-from main.models import sqdata
+from main.models import sqdata, SqUpdateForm
 
 def index(request):
-    return HttpResponse("Hello, world!")
+    sightings = sqdata.objects.all()
+
+    context = {
+        'sightings': sightings
+    }
+
+    return render(request,"sightings/index.html",context)
 
 def stats(request):
     
@@ -52,4 +59,28 @@ def stats(request):
     return render(request,"sightings/index.html",context)
 
 def update(request, unique_squirrel_id):
-    return HttpResponse("Hello squirrel " + unique_squirrel_id)
+    if request.method == 'POST':
+        form = SqUpdateForm(request.POST)
+        if form.is_valid():
+            new_squirrel = form.save(commit=False)
+            squirrel = get_object_or_404(sqdata.objects.all(), unique_squirrel_id=unique_squirrel_id)
+            squirrel.x = new_squirrel.x
+            squirrel.y = new_squirrel.y
+            squirrel.unique_squirrel_id = new_squirrel.unique_squirrel_id
+            squirrel.shift = new_squirrel.shift
+            squirrel.date = new_squirrel.date
+            squirrel.age = new_squirrel.age
+            squirrel.save(update_fields=["x", "y", "unique_squirrel_id", "shift", "date", "age"])
+            messages.info(request, 'Squirrel sighting updated successfully!')
+            return HttpResponseRedirect('/sightings/' + unique_squirrel_id)
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)
+    else:
+        squirrel = get_object_or_404(sqdata.objects.all(), unique_squirrel_id=unique_squirrel_id)
+        form = SqUpdateForm(instance=squirrel)
+
+        context = {
+            'form': form
+        }   
+
+        return render(request, "sightings/update.html", context)

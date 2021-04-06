@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext as _
 
+from django.forms import ModelForm
+
 class sqdata(models.Model):
     x = models.FloatField(
         max_length = 25,
@@ -40,6 +42,7 @@ class sqdata(models.Model):
         
     age = models.CharField(
         max_length= 10,
+        blank=True,
         help_text= _('Value is either Adult or Juvenile.')
     )
     
@@ -113,5 +116,10 @@ class sqdata(models.Model):
     
     def __str__(self):
         return self.unique_squirrel_id
+
+class SqUpdateForm(ModelForm):
+    class Meta:
+        model = sqdata
+        fields = [ 'x', 'y', 'unique_squirrel_id', 'shift', 'date', 'age' ]
 
 # Create your models here.
