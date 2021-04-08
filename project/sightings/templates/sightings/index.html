@@ -1,39 +1,84 @@
-{% load static %}
-<html>
+<!DOCTYPE html>
+<html lang = "en">
     <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Squirrel Sightings</title>
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+            {% load static %}
+      <link href="{% static  '/bootstrap.min.css' %}" rel="stylesheet">
+      <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="{% static 'carousel.css' %}" rel="stylesheet">
     </head>
-
     <body>
-	    <div>
-	    <a href="add"><button type="button" class="btn btn-primary btn-block pt-1">Report squirrel sighting</button></a>
+        <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">Studio 54</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'map' %}">Map view</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'add' %}" tabindex="-1" aria-disabled="true">Report Sightings</a>
+                </li>
+              </ul>
+              <!-- <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form> -->
+            </div>
+          </div>
+        </nav>
+      </header>
 	    <br><br>
+    
+  <div class="container marketing">
+        <table id = "stats1" >
+          
+        <thead>
+          <tr>
+            <th >Unique Squirrel ID</th>
+            <th >Date</th>
+            <th >View sighting</th>
+          </tr>
+        </thead>
 
-	<table class="table table-striped">
-	  
-  <thead>
-    <tr>
-      <th scope="col">Unique Squirrel ID</th>
-      <th scope="col">Date</th>
-      <th scope="col">View sighting</th>
-    </tr>
-  </thead>
-
-  <tbody>
-	{% for item in sightings %}
-        <tr>
-		<th scope="row">{{ item.unique_squirrel_id }}</th>
-		<td>{{ item.date }}</td>
-  		<td><a href="{{ item.unique_squirrel_id }}">Link</a></td>
-	</tr>
-	{% endfor %}
-	
-   </tbody>
-	</table>
-	    </div>
+        <tbody>
+        {% for item in sightings %}
+              <tr>
+          <td scope="row">{{ item.unique_squirrel_id }}</th>
+          <td>{{ item.date }}</td>
+            <td><a href="{{ item.unique_squirrel_id }}">Link</a></td>
+        </tr>
+        {% endfor %}
+        
+        </tbody>
+        </table>
+	</div>
 
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

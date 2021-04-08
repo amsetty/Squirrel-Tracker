@@ -41,3 +41,4 @@ class Command(BaseCommand):
                     else:
                         _object_dict_fixed[key] = value
                 _model.objects.create(**_object_dict_fixed)
+            print("Data sucessfully imported")

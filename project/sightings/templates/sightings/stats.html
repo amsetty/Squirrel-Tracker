@@ -37,7 +37,7 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">Project 54</a>
+            <a class="navbar-brand" href="{% url 'home' %}">Studio 54</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -50,7 +50,7 @@
                   <a class="nav-link" href="{% url 'map' %}">Map view</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                  <a class="nav-link" href="{% url 'add' %}" tabindex="-1" aria-disabled="true">Report Sightings</a>
                 </li>
               </ul>
               <!-- <form class="d-flex">
