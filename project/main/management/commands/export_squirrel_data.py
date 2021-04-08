@@ -8,11 +8,14 @@ import csv
 class Command(BaseCommand):
     help = 'Exports csv data from the given path'
     
+    # raise error if the not a csv file
     def add_arguments(self, parser):
         parser.add_argument('path', type = str, help = 'Path of the csv file to write')    
 
     def handle(self, *args, **kwargs ):
         path = kwargs['path']
+        if path[-4:] != '.csv':
+            raise CommandError('Not a csv file')
         
         _model = apps.get_model('main','sqdata')
         
@@ -41,3 +44,4 @@ class Command(BaseCommand):
                         row_values.append(str(value))
                 
                 writer.writerow(row_values)
+            print("Data sucessfully exported")

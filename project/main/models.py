@@ -31,7 +31,7 @@ class sqdata(models.Model):
     )
     
     date = models.DateField(
-        help_text= _('Sighting date (format: YYYY-MM-DD')
+        help_text= _('Sighting date (format: YYYY-MM-DD)')
     )
     
     hectare_squirrel_number = models.IntegerField(

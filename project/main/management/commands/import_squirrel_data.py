@@ -14,8 +14,9 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs ):
         path = kwargs['path']
         
-        # if not path.name.endswith('.csv'):
-        #     raise CommandError('Not a csv file')
+        # raise error if the imported file is not csv
+        if path[-4:] != '.csv':
+            raise CommandError('Not a csv file')
         
         _model = apps.get_model('main','sqdata')
         
