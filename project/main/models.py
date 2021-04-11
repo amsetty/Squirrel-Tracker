@@ -3,7 +3,7 @@ from django.utils.translation import gettext as _
 
 from django.forms import ModelForm
 
-class sqdata(models.Model):
+class SqData(models.Model):
     x = models.FloatField(
         max_length = 25,
         help_text=_('Longitude coordinate for squirrel sighting point'),
@@ -124,12 +124,12 @@ class sqdata(models.Model):
 
 class SqUpdateForm(ModelForm):
     class Meta:
-        model = sqdata
+        model = SqData
         fields = [ 'x', 'y', 'unique_squirrel_id', 'shift', 'date', 'age' ]
 
 class SqAddForm(ModelForm):
     class Meta:
-        model = sqdata
+        model = SqData
         fields = '__all__'
 
 # Create your models here.

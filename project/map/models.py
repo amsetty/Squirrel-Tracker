@@ -1,6 +1,6 @@
 from django.db import models
-# from main.models import sqdata
+# from main.models import SqData
 
-# sqdata = apps.get_model('main','sqdata')
+# SqData = apps.get_model('main','SqData')
 
 # Create your models here.

@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 
 from django.apps import apps
-# from django.db.models import sqdata
+# from django.db.models import SqData
 
 import csv
 
@@ -17,7 +17,7 @@ class Command(BaseCommand):
         if path[-4:] != '.csv':
             raise CommandError('Not a csv file')
         
-        _model = apps.get_model('main','sqdata')
+        _model = apps.get_model('main','SqData')
         
         fields = _model._meta.get_fields() #retrieve column names and their types
         field_names = []

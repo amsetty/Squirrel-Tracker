@@ -5,10 +5,10 @@ from django.db.models import Count
 from django.db.models import Min
 from django.contrib import messages
 
-from main.models import sqdata, SqUpdateForm, SqAddForm
+from main.models import SqData, SqUpdateForm, SqAddForm
 
 def index(request):
-    sightings = sqdata.objects.all()
+    sightings = SqData.objects.all()
 
     context = {
         'sightings': sightings
@@ -19,20 +19,20 @@ def index(request):
 def stats(request):
     
     # Total Number of sightings
-    number_of_sightings = sqdata.objects.count()
+    number_of_sightings = SqData.objects.count()
     
     # Distribution of age of the squirrels
-    age = sqdata.objects.values('age').annotate(dist_count=Count('age')).order_by('-dist_count')[:]  
+    age = SqData.objects.values('age').annotate(dist_count=Count('age')).order_by('-dist_count')[:]  
     
     # Top three primary fur colors of the squirrels
-    fur = sqdata.objects.values('primary_fur_color').annotate(dist_count=Count('primary_fur_color')).order_by('-dist_count')[:3]
+    fur = SqData.objects.values('primary_fur_color').annotate(dist_count=Count('primary_fur_color')).order_by('-dist_count')[:3]
 
     # Top three Hectare with most number of sightings   
-    hec = sqdata.objects.values('hectare').annotate(dist_count=Count('hectare')).order_by('-dist_count')[:3]
+    hec = SqData.objects.values('hectare').annotate(dist_count=Count('hectare')).order_by('-dist_count')[:3]
     
     # Durations of the sightings
-    min_date =  sqdata.objects.all().aggregate(Min('date'))
-    max_date =  sqdata.objects.all().aggregate(Max('date'))
+    min_date =  SqData.objects.all().aggregate(Min('date'))
+    max_date =  SqData.objects.all().aggregate(Max('date'))
     
 
     #max_date.get('date__max') 10202018
@@ -50,7 +50,7 @@ def stats(request):
     # return HttpResponse(fur[0])
     return render(request,"sightings/stats.html",context)
 
-    sightings = sqdata.objects.all()
+    sightings = SqData.objects.all()
 
     context = {
         'sightings': sightings
@@ -63,7 +63,7 @@ def update(request, unique_squirrel_id):
         form = SqUpdateForm(request.POST)
         if form.is_valid():
             new_squirrel = form.save(commit=False)
-            squirrel = get_object_or_404(sqdata.objects.all(), unique_squirrel_id=unique_squirrel_id)
+            squirrel = get_object_or_404(SqData.objects.all(), unique_squirrel_id=unique_squirrel_id)
             squirrel.x = new_squirrel.x
             squirrel.y = new_squirrel.y
             squirrel.unique_squirrel_id = new_squirrel.unique_squirrel_id
@@ -76,7 +76,7 @@ def update(request, unique_squirrel_id):
         else:
             return JsonResponse({'errors': form.errors}, status=400)
     else:
-        squirrel = get_object_or_404(sqdata.objects.all(), unique_squirrel_id=unique_squirrel_id)
+        squirrel = get_object_or_404(SqData.objects.all(), unique_squirrel_id=unique_squirrel_id)
         form = SqUpdateForm(instance=squirrel)
         if squirrel.primary_fur_color == "Cinnamon":
                 squirrel_color = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Squirrel_posing.jpg/1200px-Squirrel_posing.jpg"

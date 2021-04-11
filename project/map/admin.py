@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-# from .models import sqdata
+# from .models import SqData
 
-# admin.site.register(sqdata)
+# admin.site.register(SqData)
 
 # Register your models here.
