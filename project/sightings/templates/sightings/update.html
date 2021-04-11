@@ -51,11 +51,10 @@
       </header>
 	    <br><br>
 
-	<div class = "container marketing">
-
-	<img src="{{ squirrel_color }}" width="600">
+	<div class = "container-md">
+  <div class ="row">
 	<br><br>
-
+  <div class = "col col-lg-6">
 	<h4 class="mb-3">Update Sightings</h4>
 			{% if messages %}
 			<ul class="messages">
@@ -73,6 +72,11 @@
             <!-- <input type="submit" value="Add"> -->
             <button type="submit" class="btn btn-secondary">Update</button>
         </form>
+    </div>
+      <div class = "col col-lg-6">  
+	<img src="{{ squirrel_color }}" width="600">
+  </div>
+    </div>
     </div>
 </body>
 </html>
