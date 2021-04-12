@@ -28,6 +28,10 @@ class SqData(models.Model):
     shift = models.CharField(
         max_length= 20,
         help_text= _('Value is either "AM" or "PM," to communicate whether the sighting session occurred in the morning or late afternoon'),
+        choices = (
+            ('PM', 'PM'),
+            ('AM', 'AM'),
+        )
     )
     
     date = models.DateField(
@@ -41,72 +45,135 @@ class SqData(models.Model):
         
     age = models.CharField(
         max_length= 10,
-        blank=True,
-        help_text= _('Value is either Adult or Juvenile.')
-    )
+        help_text= _('Value is either Adult or Juvenile.'),
+        choices = (
+            ('Adult', 'Adult'),
+            ('Juvenile', 'Juvenile'),
+            )
+        )
     
     primary_fur_color = models.CharField(
         max_length= 30,
         blank=True,
+         help_text= _('Primary fur color is either Gray, Cinnamon, or Black.'),
+        choices = (
+            ('Gray', 'Gray'),
+            ('Cinnamon', 'Cinnamon'),
+            ('Black', 'Black')
+            )
     )
     
     highlight_fur_color = models.CharField(
         max_length=30,
         blank=True,
+        help_text= _('Fur highlights are either Gray, Cinnamon, or Black.'),
+        choices = (
+            ('Gray', 'Gray'),
+            ('Cinnamon', 'Cinnamon'),
+            ('Black', 'Black')
+            )
     )
     
     combination_of_primary_and_highlight_color = models.CharField(
         max_length=30,
         blank=True,
+        help_text= _('A combination of the previous two columns; this column gives the total permutations of primary and highlight colors observed.')
     )
     
     color_notes = models.TextField(
         blank= True,
+        help_text= _('Sighters occasionally added commentary on the squirrel fur conditions. These notes are provided here.')
     )
     
     location = models.CharField(
         max_length=50,
         blank=True,
+        help_text= _('Value is either "Ground Plane" or "Above Ground." Sighters were instructed to indicate the location of where the squirrel was when first sighted.'),
+        choices = (
+            ('Ground Plane', 'Ground Plane'),
+            ('Above Ground', 'Above Ground'),
+        )
     )
     
     above_ground_sighter_measurement = models.CharField(
         max_length=10,
         blank=True,
+        help_text= _('For squirrel sightings on the ground plane, fields were populated with a value of “FALSE.”')
      )
     
     specific_location = models.TextField(
         blank= True,
+        help_text= _('Sighters occasionally added commentary on the squirrel location. These notes are provided here.')
     )
 
-    running = models.BooleanField(default=False)
+    running = models.BooleanField(
+        default=False,
+        help_text= _('Squirrel was seen running.'),
+        )
 
-    chasing = models.BooleanField(default=False)
+    chasing = models.BooleanField(
+        default=False,
+        help_text= _('Squirrel was seen chasing another squirrel.'),
+        )
     
-    climbing = models.BooleanField(default=False)
+    climbing = models.BooleanField(
+        default=False,
+        help_text= _('Squirrel was seen climbing a tree or other environmental landmark.')
+        )
     
-    eating = models.BooleanField(default=False)
+    eating = models.BooleanField(
+        default=False,
+        help_text= _('Squirrel was seen eating.')
+        )
     
-    foraging = models.BooleanField(default=False)
+    foraging = models.BooleanField(
+        default=False,
+        help_text= _('Squirrel was seen foraging for food.')
+        )
     
     other_activities = models.TextField(
         blank= True,
     )
     
-    kuks = models.BooleanField(default=False)
+    kuks = models.BooleanField(
+        default=False,
+        help_text= _('Squirrel was heard kukking, a chirpy vocal communication used for a variety of reasons.')
+        )
     
-    quaas = models.BooleanField(default=False)
+    quaas = models.BooleanField(
+        default=False,
+        help_text=_('Squirrel was heard quaaing, an elongated vocal communication which can indicate the presence of a ground predator such as a dog.')
+        )
     
-    moans = models.BooleanField(default=False)
+    moans = models.BooleanField(
+        default=False,
+        help_text=_('Squirrel was heard moaning, a high-pitched vocal communication which can indicate the presence of an air predator such as a hawk.')
+        )
     
-    tail_flags = models.BooleanField(default=False)
+    tail_flags = models.BooleanField(
+        default=False,
+        help_text=_("Squirrel was seen flagging its tail. Flagging is a whipping motion used to exaggerate squirrel's size and confuse rivals or predators. Looks as if the squirrel is scribbling with tail into the air.")
+        )
     
-    tail_twitches = models.BooleanField(default=False)
+    tail_twitches = models.BooleanField(
+        default=False,
+        help_text=_('Squirrel was seen twitching its tail. Looks like a wave running through the tail, like a breakdancer doing the arm wave. Often used to communicate interest, curiosity.')
+        )
     
-    approaches = models.BooleanField(default=False)
+    approaches = models.BooleanField(
+        default=False,
+        help_text=_('Squirrel was seen approaching human, seeking food.')
+        )
     
-    indifferent = models.BooleanField(default=False)
+    indifferent = models.BooleanField(
+        default=False,
+        help_text=_('Squirrel was indifferent to human presence.')
+        )
     
-    runs_from = models.BooleanField(default=False)
+    runs_from = models.BooleanField(
+        default=False,
+        help_text=_('Squirrel was seen running from humans, seeing them as a threat.')
+        )
     
     other_interactions = models.TextField(
         blank= True,
