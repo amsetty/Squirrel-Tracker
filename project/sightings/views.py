@@ -73,25 +73,26 @@ def update(request, unique_squirrel_id):
             squirrel.save(update_fields=["x", "y", "unique_squirrel_id", "shift", "date", "age"])
             messages.info(request, 'Squirrel sighting updated successfully!')
             return HttpResponseRedirect('/sightings/' + unique_squirrel_id)
-        else:
-            return JsonResponse({'errors': form.errors}, status=400)
-    else:
-        squirrel = get_object_or_404(SqData.objects.all(), unique_squirrel_id=unique_squirrel_id)
-        form = SqUpdateForm(instance=squirrel)
-        if squirrel.primary_fur_color == "Cinnamon":
-                squirrel_color = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Squirrel_posing.jpg/1200px-Squirrel_posing.jpg"
-        elif squirrel.primary_fur_color == "Black":
-            squirrel_color = "https://www.stcnature.org/rccms/wp-content/uploads/2019/11/BlackSquirrels_11-22-19-620x362.jpg"
-        elif squirrel.primary_fur_color == "Gray":
-            squirrel_color = "https://a4.pbase.com/g4/37/669537/2/60807049.GreySquirrel.jpg"
-        else:
-            squirrel_color = "https://i.guim.co.uk/img/media/87225a7774183af748486e42a2910690a34c637e/1030_573_4085_2455/master/4085.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=077110e9d5b31edcd785beb1c011ea78"
-        context = {
-            'form': form, 
-            'squirrel_color': squirrel_color
-        }   
 
-        return render(request, "sightings/update.html", context)
+    squirrel = get_object_or_404(SqData.objects.all(), unique_squirrel_id=unique_squirrel_id)
+    if request.method == 'GET':
+        form = SqUpdateForm(instance=squirrel)
+
+    if squirrel.primary_fur_color == "Cinnamon":
+        squirrel_color = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Squirrel_posing.jpg/1200px-Squirrel_posing.jpg"
+    elif squirrel.primary_fur_color == "Black":
+        squirrel_color = "https://www.stcnature.org/rccms/wp-content/uploads/2019/11/BlackSquirrels_11-22-19-620x362.jpg"
+    elif squirrel.primary_fur_color == "Gray":
+        squirrel_color = "https://a4.pbase.com/g4/37/669537/2/60807049.GreySquirrel.jpg"
+    else:
+        squirrel_color = "https://i.guim.co.uk/img/media/87225a7774183af748486e42a2910690a34c637e/1030_573_4085_2455/master/4085.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=077110e9d5b31edcd785beb1c011ea78"
+        
+    context = {
+        'form': form, 
+        'squirrel_color': squirrel_color
+    }   
+
+    return render(request, "sightings/update.html", context)
 
 
 def add(request):
@@ -101,13 +102,12 @@ def add(request):
             form.save()
             messages.info(request, 'Squirrel sighting added successfully!')
             return HttpResponseRedirect('/sightings/add')
-        else:
-            return JsonResponse({'errors': form.errors}, status=400)
-    else:
+    
+    if request.method == 'GET':
         form = SqAddForm()
 
-        context = {
-            'form': form
-        }
+    context = {
+        'form': form
+    }
 
-        return render(request, "sightings/add.html", context)
+    return render(request, "sightings/add.html", context)

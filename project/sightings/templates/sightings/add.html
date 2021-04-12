@@ -52,6 +52,7 @@
     <div class = "container marketing">
         <h4 class="mb-3">Report New Sightings</h4>
 
+<!-- Code below displays message if sighting added succesfully.-->
         {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -59,6 +60,22 @@
             {% endfor %}
         </ul>
         {% endif %}
+
+<!-- Code below displays form error if input values are not correct.-->
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
 
         <form method="POST">
             {% csrf_token %}
