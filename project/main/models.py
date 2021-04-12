@@ -185,7 +185,7 @@ class SqData(models.Model):
     lat_long = models.CharField(
         max_length=50,
         blank=True,
-        help_text=_('Sighting coordinates; latitute x longitude.')
+        help_text=_('Insert as "POINT (Latitude Value Longitude Value)"')
     )
     
     id = models.AutoField(primary_key=True)
