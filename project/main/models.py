@@ -177,11 +177,13 @@ class SqData(models.Model):
     
     other_interactions = models.TextField(
         blank= True,
+        help_text=_('Sighter notes on other types of interactions between squirrels and humans.')
     )    
     
     lat_long = models.CharField(
         max_length=50,
         blank=True,
+        help_text=_('Sighting coordinates; latitute x longitude.')
     )
     
     id = models.AutoField(primary_key=True)
