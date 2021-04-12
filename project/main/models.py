@@ -10,19 +10,14 @@ class SqData(models.Model):
     )
     
     y = models.FloatField(
-        max_length= 25,
+        max_length=25,
         help_text=_('Latitude coordinate for squirrel sighting point'),
     )
     
     unique_squirrel_id = models.CharField(
-        max_length= 40,
+        max_length=40,
         help_text= _('Hectare ID" + "Shift" + "Date" (MMDD) + "Hectare Squirrel Number.'),
-    )
-    
-    hectare = models.CharField(
-        max_length= 20,
-        blank=True,
-        help_text= _('ID tag derived from hectare grid'),
+        unique=True,
     )
         
     shift = models.CharField(
@@ -37,11 +32,6 @@ class SqData(models.Model):
     date = models.DateField(
         help_text= _('Sighting date (format: YYYY-MM-DD)')
     )
-    
-    hectare_squirrel_number = models.IntegerField(
-        help_text=_('Number within the chronological sequence of squirrel sightings for a discrete sighting session'),
-        
-    )
         
     age = models.CharField(
         max_length= 10,
@@ -52,10 +42,22 @@ class SqData(models.Model):
             )
         )
     
+    hectare = models.CharField(
+        max_length= 20,
+        blank=True,
+        help_text= _('ID tag derived from hectare grid'),
+    )
+    
+    hectare_squirrel_number = models.IntegerField(
+        help_text=_('Number within the chronological sequence of squirrel sightings for a discrete sighting session'),
+        blank=True,
+        null=True,  # Allows storing empty values to the database (text fields do not need this because they are stored as empty strings)
+    )
+
     primary_fur_color = models.CharField(
         max_length= 30,
         blank=True,
-         help_text= _('Primary fur color is either Gray, Cinnamon, or Black.'),
+        help_text= _('Primary fur color is either Gray, Cinnamon, or Black.'),
         choices = (
             ('Gray', 'Gray'),
             ('Cinnamon', 'Cinnamon'),

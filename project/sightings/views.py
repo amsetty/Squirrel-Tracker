@@ -59,22 +59,15 @@ def stats(request):
     return render(request,"sightings/index.html",context)
 
 def update(request, unique_squirrel_id):
+    squirrel = get_object_or_404(SqData.objects.all(), unique_squirrel_id=unique_squirrel_id)
+    
     if request.method == 'POST':
-        form = SqUpdateForm(request.POST)
+        form = SqUpdateForm(request.POST, instance=squirrel)
         if form.is_valid():
-            new_squirrel = form.save(commit=False)
-            squirrel = get_object_or_404(SqData.objects.all(), unique_squirrel_id=unique_squirrel_id)
-            squirrel.x = new_squirrel.x
-            squirrel.y = new_squirrel.y
-            squirrel.unique_squirrel_id = new_squirrel.unique_squirrel_id
-            squirrel.shift = new_squirrel.shift
-            squirrel.date = new_squirrel.date
-            squirrel.age = new_squirrel.age
-            squirrel.save(update_fields=["x", "y", "unique_squirrel_id", "shift", "date", "age"])
+            form.save()
             messages.info(request, 'Squirrel sighting updated successfully!')
             return HttpResponseRedirect('/sightings/' + unique_squirrel_id)
 
-    squirrel = get_object_or_404(SqData.objects.all(), unique_squirrel_id=unique_squirrel_id)
     if request.method == 'GET':
         form = SqUpdateForm(instance=squirrel)
 
