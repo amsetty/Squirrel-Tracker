@@ -7,3 +7,13 @@ handlers:
 
 - url: /.*
   script: auto
+
+env_variables:
+    DEBUG: 'false'
+    INSTANCE_CONNECTION_NAME: 'causal-fort-308615:us-central1:squirrel2'
+    PGDATABASE: 'postgres'
+    PGUSER: 'postgres'
+    PGPASSWORD: 'tjGz0qA21MnkGl2L'
+    SECRET_KEY: 'h9i97-!j)isqd%dozy1yr3-ynt-@mv#n3*4z25uid0x((%m7dn'
+    GS_BUCKET_NAME: 'causal-fort-308615.appspot.com'
+    GOOGLE_APPLICATION_CREDENTIALS: 'service-account-key.json'

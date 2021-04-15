@@ -29,7 +29,8 @@ class SqData(models.Model):
         )
     )
     
-    date = models.DateField(
+    date = models.CharField(
+        max_length=10,
         help_text= _('Sighting date (format: YYYY-MM-DD)')
     )
         

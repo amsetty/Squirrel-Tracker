@@ -21,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'h9i97-!j)isqd%dozy1yr3-ynt-@mv#n3*4z25uid0x((%m7dn'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (os.environ.get('DEBUG') or '').strip().lower() in ('1', 'true')
 
 ALLOWED_HOSTS = ['*']
 
@@ -77,13 +77,43 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# Database
+if os.environ.get('GAE_APPLICATION'):
+    # If the host is not 127.0.0.1, assume we are running in GAE.
+    host = os.environ.get('PGHOST')
+    if host == '127.0.0.1':
+        host = os.environ.get('PGHOST')
+        port = os.environ.get('PGPORT')
+        database = os.environ.get('PGDATABASE')
+        username = os.environ.get('PGUSERNAME')
+        password = os.environ.get('PGPASSWORD')
+    else:
+        host = '/cloudsql/' + os.environ.get('INSTANCE_CONNECTION_NAME')
+        port = None
+        database = os.environ.get('PGDATABASE')
+        username = os.environ.get('PGUSERNAME')
+        password = os.environ.get('PGPASSWORD')
 
+    # Connect to GCP CloudSQL
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': database,
+            'USER': username,
+            'PASSWORD': password,
+            'HOST': host,
+            'PORT': port,
+        }
+    }
+
+else:
+    # Fall back to sqlite
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -123,3 +153,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,  'static')
+
+#if os.environ.get('GAE_APPLICATION'):
+#    GS_DEFAULT_ACL = 'publicRead'
+#    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+#    STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+#    GS_BUCKET_NAME = os.environ.get('GS_BUCKET_NAME')
+#    MEDIA_URL = f'https://storage.cloud.google.com/{GS_BUCKET_NAME}/'
+#    STATIC_URL = f'https://storage.cloud.google.com/{GS_BUCKET_NAME}/'
